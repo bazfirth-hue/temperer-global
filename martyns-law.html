@@ -1,0 +1,406 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Martyn's Law Compliance & Strategy | Temperer Global</title>
+    <style>
+        :root {
+            --bg-navy: #0B1325;
+            --bg-card: #111A2E;
+            --text-white: #F8F9FA;
+            --text-slate: #94A3B8;
+            --accent-gold: #C5A880;
+            --gold-hover: #D4BC9A;
+            --border-muted: rgba(197, 168, 128, 0.2);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-navy);
+            color: var(--text-white);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-size: 18px;
+            line-height: 1.6;
+            letter-spacing: -0.01em;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Hero Section */
+        header {
+            padding: 8rem 0 5rem 0;
+            border-bottom: 1px solid var(--border-muted);
+            background: linear-gradient(180deg, #0f1932 0%, #0B1325 100%);
+        }
+
+        .tagline {
+            color: var(--accent-gold);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 0.15em;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        h1 {
+            font-size: 3rem;
+            line-height: 1.15;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.03em;
+        }
+
+        .hero-desc {
+            color: var(--text-slate);
+            font-size: 1.25rem;
+            max-width: 800px;
+            margin-bottom: 2.5rem;
+        }
+
+        /* Countdown Grid */
+        .countdown-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border-muted);
+            padding: 2.5rem;
+            border-radius: 8px;
+            margin-top: -3rem;
+            margin-bottom: 5rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .countdown-title {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent-gold);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .countdown-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            text-align: center;
+        }
+
+        .countdown-box {
+            background: rgba(11, 19, 37, 0.6);
+            padding: 1.5rem;
+            border-radius: 6px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .countdown-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-white);
+            display: block;
+        }
+
+        .countdown-label {
+            font-size: 0.85rem;
+            color: var(--text-slate);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 0.25rem;
+            display: block;
+        }
+
+        /* Content Section */
+        section {
+            padding: 5rem 0;
+        }
+
+        h2 {
+            font-size: 2.25rem;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        p {
+            color: var(--text-slate);
+            margin-bottom: 1.5rem;
+        }
+
+        .highlight-box {
+            border-left: 3px solid var(--accent-gold);
+            padding-left: 1.5rem;
+            margin: 2.5rem 0;
+        }
+
+        .highlight-box p {
+            font-style: italic;
+            font-size: 1.1rem;
+            color: var(--text-white);
+        }
+
+        /* Tier Comparison Table */
+        .tier-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .tier-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-muted);
+            border-radius: 8px;
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tier-card.enhanced {
+            border: 1px solid var(--accent-gold);
+            background: linear-gradient(145deg, #111A2E 0%, #15223D 100%);
+        }
+
+        .tier-badge {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent-gold);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .tier-capacity {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .tier-list {
+            list-style: none;
+            margin-bottom: 2.5rem;
+            flex-grow: 1;
+        }
+
+        .tier-list li {
+            color: var(--text-slate);
+            margin-bottom: 1rem;
+            position: relative;
+            padding-left: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .tier-list li::before {
+            content: "—";
+            position: absolute;
+            left: 0;
+            color: var(--accent-gold);
+        }
+
+        /* Action Forms / Buttons */
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-gold);
+            color: var(--bg-navy);
+            text-decoration: none;
+            padding: 1rem 2rem;
+            border-radius: 4px;
+            font-weight: 600;
+            text-align: center;
+            transition: background-color 0.2s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            background-color: var(--gold-hover);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--text-white);
+            border: 1px solid var(--accent-gold);
+            margin-left: 1rem;
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(197, 168, 128, 0.1);
+        }
+
+        .cta-section {
+            background: var(--bg-card);
+            border-top: 1px solid var(--border-muted);
+            text-align: center;
+            padding: 6rem 0;
+        }
+
+        footer {
+            background-color: #060B14;
+            padding: 3rem 0;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            color: rgba(148, 163, 184, 0.6);
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.25rem; }
+            .countdown-grid { grid-template-columns: repeat(2, 1fr); }
+            .tier-grid { grid-template-columns: 1fr; }
+            .btn { width: 100%; margin-bottom: 1rem; }
+            .btn-outline { margin-left: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Executive Hero Header -->
+    <header>
+        <div class="container">
+            <span class="tagline">Sovereign Defense & Corporate Intelligence</span>
+            <h1>Martyn's Law Readiness &<br>Statutory Compliance</h1>
+            <p class="hero-desc">The Terrorism (Protection of Premises) Act 2025 mandates stringent legal obligations for UK venues. Guided by the freshly published Home Office Section 27 Guidance, Temperer Global insulates your operations against regulatory exposure and operational vulnerabilities.</p>
+            <div>
+                <a href="#audit" class="btn">Request Corporate Audit</a>
+                <a href="#tiers" class="btn btn-outline">Explore Tier Framework</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Live Countdown Module -->
+    <div class="container">
+        <div class="countdown-container">
+            <div class="countdown-title">MANDATORY LEGAL ENFORCEMENT COUNTDOWN (SPRING 2027)</div>
+            <div class="countdown-grid">
+                <div class="countdown-box">
+                    <span class="countdown-number" id="days">280</span>
+                    <span class="countdown-label">Days</span>
+                </div>
+                <div class="countdown-box">
+                    <span class="countdown-number" id="hours">14</span>
+                    <span class="countdown-label">Hours</span>
+                </div>
+                <div class="countdown-box">
+                    <span class="countdown-number" id="minutes">42</span>
+                    <span class="countdown-label">Minutes</span>
+                </div>
+                <div class="countdown-box">
+                    <span class="countdown-number" id="seconds">09</span>
+                    <span class="countdown-label">Seconds</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overview Strategy Section -->
+    <section id="overview">
+        <div class="container">
+            <h2>Deciphering Section 27 Statutory Guidance</h2>
+            <p>On April 15, 2026, the Home Office formally issued the official Section 27 statutory guidance framework. This critical release shifts Martyn's Law from a theoretical protective measure into an active, enforceable legal countdown. UK businesses operating publicly accessible spaces have a strict 24-month implementation period to evaluate, draft, and deploy compliant security systems before facing severe regulatory sanctions overseen by the Security Industry Authority (SIA).</p>
+            
+            <div class="highlight-box">
+                <p>"Compliance is not determined by client averages; it is assessed entirely against your peak capacity threshold, explicitly including all on-site personnel, operational contractors, and active staff members."</p>
+            </div>
+            
+            <p>Failure to implement proportionate protective measures exposes corporate officers to significant regulatory penalties, operational cessation orders, and catastrophic reputational damage. Temperer Global provides professional assessment to transition your business cleanly into the new legal compliance landscape.</p>
+        </div>
+    </section>
+
+    <!-- Framework Matrix -->
+    <section id="tiers" style="background-color: rgba(255,255,255,0.01); border-top: 1px solid rgba(255,255,255,0.02); border-bottom: 1px solid rgba(255,255,255,0.02);">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 1rem;">The Two-Tier Compliance Architecture</h2>
+            <p style="text-align: center; max-width: 700px; margin: 0 auto 4rem auto;">Duties scale strictly according to your maximum occupancy infrastructure. Understanding your legal band is the primary step toward structural defense.</p>
+            
+            <div class="tier-grid">
+                <!-- Standard Tier -->
+                <div class="tier-card">
+                    <span class="tier-badge">Standard Tier Premises</span>
+                    <div class="tier-capacity">200 – 799 Persons</div>
+                    <p style="font-size: 0.95rem; margin-bottom: 1.5rem;">Focused on low-cost, high-impact operational readiness and procedural training for personnel.</p>
+                    <ul class="tier-list">
+                        <li>Mandatory deployment of appropriate public protection procedures under Section 5.</li>
+                        <li>Formalized planning for rapid Evacuation and safe internal Invacuation.</li>
+                        <li>Documented emergency Lockdown configurations to actively counter physical threats.</li>
+                        <li>Established internal and public Communication crisis protocols.</li>
+                        <li>Compulsory staff security training and awareness programs.</li>
+                    </ul>
+                    <div style="font-size: 0.85rem; color: #EF4444; font-weight: 600;">SIA Non-Compliance Penalty: Up to £10,000</div>
+                </div>
+
+                <!-- Enhanced Tier -->
+                <div class="tier-card enhanced">
+                    <span class="tier-badge" style="color: var(--accent-gold);">Enhanced Tier & Events</span>
+                    <div class="tier-capacity">800+ Persons</div>
+                    <p style="font-size: 0.95rem; margin-bottom: 1.5rem;">Demands robust, holistic security matrices, physical mitigation infrastructure, and designated high-level accountability.</p>
+                    <ul class="tier-list">
+                        <li>All core Standard Tier procedural requirements fully realized.</li>
+                        <li>Mandatory notification and registration directly with the Security Industry Authority (SIA).</li>
+                        <li>Appointment of a designated Senior Responsible Individual to assume legal compliance liability.</li>
+                        <li>Active monitoring and threat-detection strategies for the immediate vicinity (CCTV, active patrols).</li>
+                        <li>Engineered structural security access controls and Hostile Vehicle Mitigation (HVM) barriers.</li>
+                        <li>Comprehensive operational Security of Information controls to prevent sensitive asset leaks.</li>
+                    </ul>
+                    <div style="font-size: 0.85rem; color: #EF4444; font-weight: 600;">SIA Non-Compliance Penalty: Up to £18 Million or 5% of Worldwide Revenue</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Consultation Action Trigger -->
+    <section id="audit" class="cta-section">
+        <div class="container">
+            <h2 style="margin-bottom: 1rem;">Initiate an Enterprise Compliance Audit</h2>
+            <p style="max-width: 650px; margin: 0 auto 2.5rem auto; font-size: 1.1rem;">Ensure your legal security framework is bulletproof before the enforcement target. Connect directly with our specialist corporate advisors.</p>
+            <p style="font-weight: 600; color: var(--accent-gold); font-size: 1.25rem; margin-bottom: 2rem;">Corporate Operations: +44 (0) 20 7946 0192</p>
+            <a href="mailto:compliance@temperer.global?subject=Martyns%20Law%20Compliance%20Audit" class="btn">Secure Consultation Workspace</a>
+        </div>
+    </section>
+
+    <!-- Footer System -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Temperer Global. All Security Operations & Corporate Intelligence Intelligence Reserved.</p>
+            <p style="font-size: 0.75rem; margin-top: 0.5rem; color: rgba(148, 163, 184, 0.35);">Subject to National Security Framework Protocols. Regulatory compliance oversight modeled strictly against the Terrorism (Protection of Premises) Act 2025.</p>
+        </div>
+    </footer>
+
+    <!-- Accurate Countdown Script -->
+    <script>
+        // Target: Spring 2027 implementation boundary (Estimated April 1, 2027)
+        const targetDate = new Date("April 1, 2027 00:00:00").getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const difference = targetDate - now;
+
+            if (difference > 0) {
+                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+                document.getElementById("days").innerText = String(days).padStart(2, '0');
+                document.getElementById("hours").innerText = String(hours).padStart(2, '0');
+                document.getElementById("minutes").innerText = String(minutes).padStart(2, '0');
+                document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
+            }
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
+</body>
+</html>
