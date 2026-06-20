@@ -4,62 +4,27 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Temperer Global — Elite Security Consultancy</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  
   <style>
-    /* ── SPLASH SCREEN STYLES ────────────────────────── */
-    #splash-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: radial-gradient(circle at center, #0e1a30 0%, #060b14 100%); display: flex; justify-content: center; align-items: center; z-index: 99999; transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s, transform 1.1s cubic-bezier(0.85, 0, 0.15, 1); }
-    .splash-content { text-align: center; display: flex; flex-direction: column; align-items: center; }
-    .splash-logo { width: 160px; height: auto; opacity: 0; animation: tier1LogoReveal 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.2s; }
-    .splash-title { color: #FFFFFF; font-family: 'Inter', sans-serif; font-size: 1.8rem; font-weight: 700; letter-spacing: 0.5rem; text-transform: uppercase; margin-top: 20px; opacity: 0; animation: tier1TextReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 1.1s; }
-    .splash-subtitle { color: #C5A880; font-size: 0.85rem; letter-spacing: 0.3rem; text-transform: uppercase; margin-top: 8px; opacity: 0; animation: tier1FadeIn 1s ease forwards 1.6s; }
-    @keyframes tier1LogoReveal { 0% { opacity: 0; transform: scale(0.9) translateY(20px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
-    @keyframes tier1TextReveal { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
-    @keyframes tier1FadeIn { to { opacity: 1; } }
-    #splash-screen.fade-out { opacity: 0; visibility: hidden; transform: scale(1.05); }
+    /* ── SPLASH ANIMATION CSS ────────────────────────── */
+    #splash-screen { position: fixed; top:0; left:0; width:100%; height:100vh; background:#0B1325; display:flex; justify-content:center; align-items:center; z-index:99999; transition: opacity 0.8s, visibility 0.8s; }
+    .splash-logo { width: 160px; }
+    #splash-screen.fade-out { opacity: 0; visibility: hidden; }
 
-    /* ── BASE SITE STYLES ────────────────────────────── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background: #0B1325; color: #94A3B8; font-family: 'Inter', sans-serif; }
-    #navbar { background: #0B1325; padding: 20px 40px; color: white; display: flex; justify-content: space-between; }
-    #hero { padding: 100px 40px; text-align: center; color: white; }
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    /* ── YOUR ORIGINAL SITE CSS STARTS HERE ──────────── */
+    /* PASTE ALL YOUR ORIGINAL CSS RULES FROM YOUR PREVIOUS VERSION BELOW THIS LINE */
+    
   </style>
 </head>
-
 <body>
 
   <div id="splash-screen">
-    <div class="splash-content">
-      <img src="assets/images/110616fa-689d-417c-af5b-388490147f13.webp" alt="Temperer Logo" class="splash-logo">
-      <h1 class="splash-title">TEMPERER GLOBAL</h1>
-      <p class="splash-subtitle">Elite Security Consultancy</p>
-    </div>
+    <img src="110616fa-689d-417c-af5b-388490147f13.webp" alt="Logo" class="splash-logo">
   </div>
-
-  <nav id="navbar">
-    <div class="nav-logo">TEMPERER <em>GLOBAL</em></div>
-    <div class="nav-links">
-      <a href="#">Home</a>
-      <a href="martyns-law.html">Martyn's Law</a>
-    </div>
-  </nav>
-
-  <header id="hero">
-    <h1>Elite Security Consultancy</h1>
-    <p>Specialist protection for high-value assets and infrastructure.</p>
-  </header>
 
   <script>
     window.addEventListener('DOMContentLoaded', () => {
-      setTimeout(() => {
-        const splash = document.getElementById('splash-screen');
-        if (splash) splash.classList.add('fade-out');
-      }, 3200);
+      setTimeout(() => { document.getElementById('splash-screen').classList.add('fade-out'); }, 3000);
     });
   </script>
-
 </body>
 </html>
