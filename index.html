@@ -14,31 +14,20 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      /* Deep Admiralty Navy */
       --bg:          #0B1325;
       --bg-raised:   #0E1930;
       --bg-card:     #111E38;
-
-      /* Text */
-      --white:       #F8F9FA;   /* headings & action text */
-      --slate:       #94A3B8;   /* body copy & paragraphs */
-      --muted:       #64748B;   /* subdued labels */
-
-      /* Muted Gold — used sparingly */
+      --white:       #F8F9FA;
+      --slate:       #94A3B8;
+      --muted:       #64748B;
       --gold:        #C5A880;
       --gold-faint:  rgba(197, 168, 128, 0.07);
       --gold-dim:    rgba(197, 168, 128, 0.20);
       --gold-mid:    rgba(197, 168, 128, 0.38);
-
-      /* Structure */
       --border:        rgba(255, 255, 255, 0.07);
       --border-raised: rgba(255, 255, 255, 0.11);
-
-      /* Single font for the entire page — no monospace */
       --font: 'Inter', 'Helvetica Neue', Helvetica,
               -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-
-      /* Layout */
       --nav-h:  72px;
       --pad:    140px;
       --max:    1200px;
@@ -69,7 +58,6 @@
       padding: 0 48px;
     }
 
-    /* Gold rule — short horizontal accent line */
     .gold-rule {
       width: 44px;
       height: 1px;
@@ -146,6 +134,8 @@
       transform: translateY(-1px);
     }
 
+    .btn-sm { padding: 10px 22px; font-size: 11px; }
+
     /* ── NAVIGATION ────────────────────────────────── */
     #navbar {
       position: fixed;
@@ -180,10 +170,7 @@
       color: var(--white);
       flex-shrink: 0;
     }
-    .nav-logo em {
-      font-style: normal;
-      color: var(--gold);
-    }
+    .nav-logo em { font-style: normal; color: var(--gold); }
 
     .nav-links {
       display: flex;
@@ -469,9 +456,8 @@
       background: var(--bg);
       padding: 52px 32px 44px;
       transition: background var(--t);
-      overflow: hidden;
+      /* overflow left as default (visible) so accordion is not clipped */
     }
-    /* Gold sweep line on hover */
     .pillar-card::before {
       content: '';
       position: absolute;
@@ -482,6 +468,7 @@
       transform: scaleX(0);
       transform-origin: left;
       transition: transform 0.38s ease, opacity 0.38s ease;
+      pointer-events: none;
     }
     .pillar-card:hover { background: var(--bg-raised); }
     .pillar-card:hover::before { opacity: 0.70; transform: scaleX(1); }
@@ -545,19 +532,118 @@
       opacity: 0.65;
       font-size: 7px;
     }
-    .pillar-cta-link {
-      font-size: 12px;
+
+    /* ── PILLAR ACCORDION ──────────────────────────── */
+    .pillar-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: none;
+      border: 1px solid var(--gold-dim);
+      cursor: pointer;
+      font-family: var(--font);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      padding: 10px 18px;
+      border-radius: 1px;
+      opacity: 0.80;
+      transition: opacity var(--t), background var(--t), border-color var(--t);
+    }
+    .pillar-toggle:hover,
+    .pillar-toggle[aria-expanded="true"] {
+      opacity: 1;
+      background: var(--gold-faint);
+      border-color: var(--gold-mid);
+    }
+
+    .toggle-arrow {
+      width: 11px;
+      height: 11px;
+      flex-shrink: 0;
+      transition: transform 0.32s ease;
+    }
+    .pillar-toggle[aria-expanded="true"] .toggle-arrow {
+      transform: rotate(180deg);
+    }
+
+    /* grid-template-rows trick for smooth height animation */
+    .pillar-detail {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.46s ease;
+    }
+    .pillar-detail.open {
+      grid-template-rows: 1fr;
+    }
+    .pillar-detail > div {
+      overflow: hidden;
+    }
+
+    .pillar-detail-body {
+      margin-top: 28px;
+      padding: 24px 0 4px;
+      border-top: 1px solid var(--gold-dim);
+    }
+    .pillar-detail-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0.85;
+      margin-bottom: 12px;
+    }
+    .pillar-detail-body p {
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--slate);
+      line-height: 1.80;
+      margin-bottom: 18px;
+    }
+    .pillar-detail-body ul {
+      list-style: none;
+      margin-bottom: 24px;
+    }
+    .pillar-detail-body ul li {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--slate);
+      line-height: 1.70;
+      padding: 11px 0 11px 20px;
+      border-top: 1px solid var(--border);
+      position: relative;
+    }
+    .pillar-detail-body ul li::before {
+      content: '◆';
+      position: absolute;
+      left: 0; top: 13px;
+      color: var(--gold);
+      opacity: 0.55;
+      font-size: 6px;
+    }
+    .pillar-detail-cta {
+      display: inline-flex;
+      align-items: center;
+      padding: 11px 22px;
+      font-family: var(--font);
+      font-size: 11px;
       font-weight: 600;
       letter-spacing: 0.10em;
       text-transform: uppercase;
-      color: var(--gold);
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      opacity: 0.80;
-      transition: gap var(--t), opacity var(--t);
+      color: #0B1325;
+      background: var(--gold);
+      border-radius: 1px;
+      margin-top: 8px;
+      margin-bottom: 8px;
+      transition: background var(--t), transform var(--t);
     }
-    .pillar-cta-link:hover { gap: 14px; opacity: 1; }
+    .pillar-detail-cta:hover {
+      background: #d4ba98;
+      transform: translateY(-1px);
+    }
 
     .pillars-bottom {
       margin-top: 72px;
@@ -570,6 +656,85 @@
       color: var(--muted);
       margin-bottom: 24px;
       text-transform: uppercase;
+    }
+
+    /* ── MARTYN'S LAW ──────────────────────────────── */
+    #martyn {
+      padding: var(--pad) 0;
+      background: var(--bg-card);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .martyn-intro {
+      display: grid;
+      grid-template-columns: 1fr 1.55fr;
+      gap: 80px;
+      align-items: start;
+      margin-bottom: 72px;
+    }
+
+    .martyn-lede {
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--slate);
+      line-height: 1.80;
+    }
+
+    .martyn-subtitle {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .martyn-features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin-bottom: 52px;
+    }
+
+    .martyn-feat {
+      background: var(--bg-raised);
+      padding: 40px 32px;
+      transition: background var(--t);
+    }
+    .martyn-feat:hover { background: var(--bg); }
+
+    .martyn-feat-tier {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+    .martyn-feat-capacity {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0.80;
+      padding-bottom: 18px;
+      margin-bottom: 18px;
+      border-bottom: 1px solid var(--gold-dim);
+    }
+    .martyn-feat p {
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--slate);
+      line-height: 1.75;
+    }
+
+    .martyn-cta {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
     }
 
     /* ── TESTIMONIAL ───────────────────────────────── */
@@ -690,7 +855,6 @@
       color: var(--muted);
     }
 
-    /* Secondary quotes */
     .secondary-quotes {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -750,18 +914,12 @@
       line-height: 1.85;
       margin-bottom: 22px;
     }
-    .name-body strong {
-      color: var(--white);
-      font-weight: 600;
-    }
-    .name-body em {
-      color: var(--slate);
-      font-style: italic;
-    }
+    .name-body strong { color: var(--white); font-weight: 600; }
+    .name-body em    { color: var(--slate); font-style: italic; }
 
     .name-closer {
       margin-top: 40px;
-      padding: 28px 28px;
+      padding: 28px;
       border-left: 3px solid var(--gold);
       background: var(--gold-faint);
     }
@@ -773,7 +931,6 @@
       margin: 0;
     }
 
-    /* Operational image placeholder */
     .name-img {
       width: 100%;
       aspect-ratio: 4/5;
@@ -794,7 +951,6 @@
       transition: border-color var(--t);
     }
     .name-img:hover { border-color: var(--gold-dim); }
-    /* Subtle grid pattern inside placeholder */
     .name-img::before {
       content: '';
       position: absolute;
@@ -922,12 +1078,15 @@
 
     /* ── RESPONSIVE ────────────────────────────────── */
     @media (max-width: 1024px) {
-      .pillars-grid { grid-template-columns: repeat(2, 1fr); }
+      .pillars-grid    { grid-template-columns: repeat(2, 1fr); }
+      .martyn-features { grid-template-columns: 1fr 1fr; }
     }
 
     @media (max-width: 900px) {
       .name-grid        { grid-template-columns: 1fr; gap: 56px; }
       .secondary-quotes { grid-template-columns: 1fr; }
+      .martyn-intro     { grid-template-columns: 1fr; gap: 32px; }
+      .martyn-features  { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 768px) {
@@ -952,9 +1111,9 @@
       .nav-cta         { display: none; }
       .hamburger       { display: flex; }
 
-      .hero-inner       { padding: calc(var(--nav-h) + 60px) 24px 96px; }
-      .hero-img-zone    { display: none; }
-      .hero-content     { max-width: 100%; }
+      .hero-inner        { padding: calc(var(--nav-h) + 60px) 24px 96px; }
+      .hero-img-zone     { display: none; }
+      .hero-content      { max-width: 100%; }
       .hero-availability { left: 24px; bottom: 24px; }
 
       .hero-credentials { flex-direction: column; align-items: flex-start; gap: 0; }
@@ -969,6 +1128,8 @@
       .pillars-grid { grid-template-columns: 1fr; }
       .pillar-card  { padding: 40px 24px; }
 
+      .martyn-feat  { padding: 32px 24px; }
+
       .testimonial-inner { text-align: left; }
       .quote-attribution { justify-content: flex-start; }
       .quote-meta        { text-align: left; }
@@ -981,9 +1142,10 @@
     }
 
     @media (max-width: 480px) {
-      .container { padding: 0 20px; }
-      .logo-row  { gap: 16px; }
-      .sec-quote { padding: 28px 20px; }
+      .container    { padding: 0 20px; }
+      .logo-row     { gap: 16px; }
+      .sec-quote    { padding: 28px 20px; }
+      .martyn-cta   { flex-direction: column; align-items: flex-start; }
     }
 
   </style>
@@ -996,7 +1158,7 @@
       <a href="#hero" class="nav-logo">TEMPERER<em>.</em>GLOBAL</a>
       <ul class="nav-links" id="navLinks" role="list">
         <li><a href="#pillars">Services</a></li>
-        <li><a href="#">Martyn's Law</a></li>
+        <li><a href="#martyn">Martyn's Law</a></li>
         <li><a href="#the-name">About</a></li>
         <li><a href="#final-cta">Contact</a></li>
       </ul>
@@ -1104,7 +1266,7 @@
               <line x1="30" y1="8" x2="40" y2="8" stroke-dasharray="2 3"/>
             </svg>
           </div>
-          <h3 class="pillar-name">Site Vulnerability Intelligence</h3>
+          <h3 class="pillar-name">CNI Compliance &amp; Vulnerability Assessment</h3>
           <p class="pillar-hook">
             Most security failures are not surprises.
             They are gaps that were never properly mapped.
@@ -1112,15 +1274,37 @@
           <p class="pillar-body">
             Our CNI-qualified assessors conduct structured vulnerability analysis across physical,
             procedural, and technological attack surfaces — producing a classified threat register
-            and a tiered remediation roadmap delivered within agreed timescales. No generic
-            frameworks. No theoretical models. Assessments grounded in direct operational
-            experience at the highest levels of national security.
+            and a tiered remediation roadmap. No generic frameworks. No theoretical models.
+            Assessments grounded in direct operational experience at the highest levels of national security.
           </p>
           <ul class="pillar-data">
-            <li>Assessments conducted across CNI sites, major event venues, and corporate HQs — UK and international</li>
+            <li>Deep-tier resilience engineering for data centers, power grids, and maritime hubs</li>
             <li>Every assessment delivers a classified threat register with a prioritised remediation timeline, briefed directly to your board or risk committee</li>
           </ul>
-          <a href="#final-cta" class="pillar-cta-link">View Assessment Detail &rarr;</a>
+          <button class="pillar-toggle" data-target="detail-01" aria-expanded="false" aria-controls="detail-01">
+            Full Assessment Detail
+            <svg class="toggle-arrow" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+              <polyline points="2,4 6,8 10,4"/>
+            </svg>
+          </button>
+          <div class="pillar-detail" id="detail-01" aria-hidden="true">
+            <div>
+              <div class="pillar-detail-body">
+                <div class="pillar-detail-label">What the Assessment Delivers</div>
+                <p>Deep-tier resilience engineering for data centers, power grids, and maritime hubs — mapped against the current and emerging national threat picture and CPNI/NCSC standards.</p>
+                <ul>
+                  <li>Physical perimeter and ingress analysis against CPNI hostile vehicle and access control standards</li>
+                  <li>Procedural gap mapping across personnel vetting, access control, and emergency response protocols</li>
+                  <li>Technological attack surface review — CCTV, comms, SCADA, and physical security systems</li>
+                  <li>Classified threat register prioritised by likelihood and consequential impact</li>
+                  <li>Tiered remediation roadmap: immediate, 90-day, and strategic actions</li>
+                  <li>Board-level briefing pack delivered within 10 working days of site assessment completion</li>
+                  <li>Annual re-assessment programme available for continuous assurance</li>
+                </ul>
+                <a href="#final-cta" class="pillar-detail-cta">Request This Assessment &rarr;</a>
+              </div>
+            </div>
+          </div>
         </article>
 
         <!-- 02 -->
@@ -1147,16 +1331,38 @@
           </p>
           <p class="pillar-body">
             We build bespoke crisis response frameworks stress-tested against real-world incident
-            data — drawn from our team's direct operational experience across aviation disasters,
+            data — drawn from our team's direct experience across aviation disasters,
             terrorism events, and natural catastrophes on multiple continents. Your plan is only
             as strong as the people who built it. Ours have been inside the incidents you are
             planning to prevent.
           </p>
           <ul class="pillar-data">
             <li>Frameworks developed for multi-jurisdiction, multi-agency environments — from corporate HQs to CNI assets globally</li>
-            <li>Response plans stress-tested against live incident data. Full training and tabletop exercise packages available</li>
+            <li>Response plans stress-tested against live incident data — full training and tabletop exercise packages available</li>
           </ul>
-          <a href="#final-cta" class="pillar-cta-link">View Disaster Response Detail &rarr;</a>
+          <button class="pillar-toggle" data-target="detail-02" aria-expanded="false" aria-controls="detail-02">
+            Full Consultancy Detail
+            <svg class="toggle-arrow" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+              <polyline points="2,4 6,8 10,4"/>
+            </svg>
+          </button>
+          <div class="pillar-detail" id="detail-02" aria-hidden="true">
+            <div>
+              <div class="pillar-detail-body">
+                <div class="pillar-detail-label">What You Receive</div>
+                <p>A bespoke Crisis Response Framework — documented, rehearsed, and ready for immediate activation — built by people who have managed live mass-casualty events at the highest levels.</p>
+                <ul>
+                  <li>Multi-agency coordination protocols aligned to JESIP (Joint Emergency Services Interoperability Principles)</li>
+                  <li>Tabletop exercises (TTX) facilitated by team members with direct live-incident management experience</li>
+                  <li>Full-scale rehearsal packages — including simulated mass-casualty scenarios for venue and CNI operators</li>
+                  <li>Business continuity integration with your existing DR and BCP documentation</li>
+                  <li>On-call incident advisory retained service — available 24 hours when it matters most</li>
+                  <li>Post-exercise debrief and framework update as standard</li>
+                </ul>
+                <a href="#final-cta" class="pillar-detail-cta">Request This Consultancy &rarr;</a>
+              </div>
+            </div>
+          </div>
         </article>
 
         <!-- 03 -->
@@ -1183,15 +1389,37 @@
           <p class="pillar-body">
             Our LiDAR-powered digital twin capability maps your venue or facility in precise
             spatial detail — enabling real-time modelling of crowd flows, ingress vulnerabilities,
-            blast radius scenarios, and evacuation bottlenecks before they become operational
+            blast radius scenarios, and egress bottlenecks before they become operational
             realities. Fully Martyn's Law audit-compliant. Deliverable within five working days
             for standard sites.
           </p>
           <ul class="pillar-data">
-            <li>Applied to G7 Summit security planning and major national event infrastructure — the same capability, now available to you</li>
-            <li>Martyn's Law audit-ready documentation produced as standard. SIA-compliant output for Standard and Enhanced Tier venues</li>
+            <li>Digital twin reconstructions, blast radius simulations, and egress bottleneck analysis for venues and CNI assets</li>
+            <li>Martyn's Law audit-ready documentation produced as standard — SIA-compliant output for Standard and Enhanced Tier venues</li>
           </ul>
-          <a href="#final-cta" class="pillar-cta-link">View 3D Modelling Detail &rarr;</a>
+          <button class="pillar-toggle" data-target="detail-03" aria-expanded="false" aria-controls="detail-03">
+            Full Modelling Detail
+            <svg class="toggle-arrow" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+              <polyline points="2,4 6,8 10,4"/>
+            </svg>
+          </button>
+          <div class="pillar-detail" id="detail-03" aria-hidden="true">
+            <div>
+              <div class="pillar-detail-body">
+                <div class="pillar-detail-label">Capability Breakdown</div>
+                <p>Applied to G7 Summit security planning and major national event infrastructure — the same capability, now available to your organisation.</p>
+                <ul>
+                  <li>Digital twin reconstructions of your venue, facility, or event infrastructure — accurate to centimetre resolution</li>
+                  <li>Blast radius simulations modelled against vehicle-borne (VBIED) and person-borne (PBIED) threat vectors</li>
+                  <li>Egress bottleneck identification under peak-load crowd and simulated mass-casualty evacuation conditions</li>
+                  <li>Hostile vehicle mitigation (HVM) gap analysis and barrier placement modelling</li>
+                  <li>LiDAR scan to fully navigable digital model: 3–5 working days for standard sites</li>
+                  <li>Martyn's Law audit-ready output as standard, with SIA Standard and Enhanced Tier documentation included</li>
+                </ul>
+                <a href="#final-cta" class="pillar-detail-cta">Request a 3D Assessment &rarr;</a>
+              </div>
+            </div>
+          </div>
         </article>
 
         <!-- 04 -->
@@ -1224,10 +1452,32 @@
             Our team arrives operationally ready.
           </p>
           <ul class="pillar-data">
-            <li>Deployable UK-wide within a 48-hour activation window. Short-term event contracts and ongoing site protection both available</li>
-            <li>Zero drone incursions at Temperer-protected events. Systems operated exclusively by qualified, experienced personnel</li>
+            <li>Deployable UK-wide within a 48-hour activation window — short-term event and ongoing site protection contracts both available</li>
+            <li>Zero drone incursions at Temperer-protected events — systems operated exclusively by qualified, experienced personnel</li>
           </ul>
-          <a href="#final-cta" class="pillar-cta-link">View Counter-UAS Detail &rarr;</a>
+          <button class="pillar-toggle" data-target="detail-04" aria-expanded="false" aria-controls="detail-04">
+            Full Service Detail
+            <svg class="toggle-arrow" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+              <polyline points="2,4 6,8 10,4"/>
+            </svg>
+          </button>
+          <div class="pillar-detail" id="detail-04" aria-hidden="true">
+            <div>
+              <div class="pillar-detail-body">
+                <div class="pillar-detail-label">Service Parameters</div>
+                <p>Integrated detection, classification, and interdiction capability — not piecemeal equipment procurement with no operational expertise attached.</p>
+                <ul>
+                  <li>48-hour UK-wide deployment window from instruction receipt to on-site operational readiness</li>
+                  <li>Fully qualified operators deployed — no client training burden, no familiarisation delay</li>
+                  <li>Short-term event contracts (1 day to 3 months) and long-term CNI site protection packages</li>
+                  <li>Available for public events, CNI sites, VIP principal protection movements, and maritime deployments</li>
+                  <li>Post-deployment technical report and full threat log included as standard</li>
+                  <li>Retained advisory service available for operators who require ongoing C-UAS policy and procurement guidance</li>
+                </ul>
+                <a href="#final-cta" class="pillar-detail-cta">Request a Counter-UAS Deployment &rarr;</a>
+              </div>
+            </div>
+          </div>
         </article>
 
       </div>
@@ -1235,6 +1485,67 @@
       <div class="pillars-bottom reveal">
         <p class="pillars-bottom-label">Ready to discuss your requirements?</p>
         <a href="#final-cta" class="btn btn-primary">Request a Capability Assessment</a>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ── MARTYN'S LAW ───────────────────────────────── -->
+  <section id="martyn" aria-labelledby="martyn-heading">
+    <div class="container">
+
+      <div class="martyn-intro">
+        <div class="reveal">
+          <div class="eyebrow">Regulatory Compliance</div>
+          <div class="gold-rule"></div>
+          <h2 class="section-title" id="martyn-heading">Martyn's Law</h2>
+          <p class="martyn-subtitle">UK Terrorism (Protection of Premises) Act</p>
+        </div>
+        <div class="reveal">
+          <p class="martyn-lede">
+            Comprehensive vulnerability assessments and structural preparedness protocols aligned
+            with forthcoming UK Terrorism (Protection of Premises) legislation. We protect
+            high-footfall venues, public spaces, and corporate assets from hostile reconnaissance
+            and weaponised attacks through rigorous risk profiling, staff training, and physical
+            mitigation strategies.
+          </p>
+        </div>
+      </div>
+
+      <div class="martyn-features">
+        <div class="martyn-feat reveal">
+          <div class="martyn-feat-tier">Standard Tier</div>
+          <div class="martyn-feat-capacity">200 – 799 Capacity</div>
+          <p>
+            Procedural compliance documentation and a structured staff awareness training
+            programme aligned to SIA and Home Office standard-tier requirements. Includes
+            a defined threat-response procedure and staff briefing record for audit purposes.
+          </p>
+        </div>
+        <div class="martyn-feat reveal">
+          <div class="martyn-feat-tier">Enhanced Tier</div>
+          <div class="martyn-feat-capacity">800+ Capacity</div>
+          <p>
+            Full physical vulnerability assessment, documented counter-terrorism measures,
+            and a board-ready SIA-standard security plan — with a rehearsal schedule, staff
+            training log, and documented evaluation process for ongoing compliance assurance.
+          </p>
+        </div>
+        <div class="martyn-feat reveal">
+          <div class="martyn-feat-tier">Compliance Audit</div>
+          <div class="martyn-feat-capacity">Board Reporting</div>
+          <p>
+            Executive-level compliance audit, board briefing packs, and audit-trail documentation
+            for your statutory legal obligation records — structured for immediate submission
+            to the Security Industry Authority on commencement of the Act.
+          </p>
+        </div>
+      </div>
+
+      <div class="martyn-cta reveal">
+        <a href="#final-cta" class="btn btn-primary">Request a Martyn's Law Assessment</a>
+        <a href="#pillars"   class="btn btn-outline">View All Capabilities</a>
       </div>
 
     </div>
@@ -1380,7 +1691,7 @@
         <div class="footer-logo">TEMPERER<em>.</em>GLOBAL</div>
         <nav class="footer-nav" aria-label="Footer navigation">
           <a href="#pillars">Services</a>
-          <a href="#">Martyn's Law</a>
+          <a href="#martyn">Martyn's Law</a>
           <a href="#the-name">About</a>
           <a href="#final-cta">Contact</a>
         </nav>
@@ -1430,6 +1741,43 @@
     }, { threshold: 0.06, rootMargin: '0px 0px -28px 0px' });
 
     revealEls.forEach(el => observer.observe(el));
+
+    /* Pillar accordions */
+    const pillarToggles = document.querySelectorAll('.pillar-toggle');
+
+    pillarToggles.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetId = btn.dataset.target;
+        const panel    = document.getElementById(targetId);
+        const isOpen   = btn.getAttribute('aria-expanded') === 'true';
+
+        /* Close any other open panel */
+        pillarToggles.forEach(other => {
+          if (other === btn) return;
+          const otherId    = other.dataset.target;
+          const otherPanel = document.getElementById(otherId);
+          other.setAttribute('aria-expanded', 'false');
+          otherPanel.classList.remove('open');
+          otherPanel.setAttribute('aria-hidden', 'true');
+        });
+
+        /* Toggle this panel */
+        const nowOpen = !isOpen;
+        btn.setAttribute('aria-expanded', String(nowOpen));
+        panel.classList.toggle('open', nowOpen);
+        panel.setAttribute('aria-hidden', String(!nowOpen));
+
+        /* Scroll the opened card into view smoothly */
+        if (nowOpen) {
+          setTimeout(() => {
+            btn.closest('.pillar-card').scrollIntoView({
+              behavior: 'smooth',
+              block: 'nearest'
+            });
+          }, 80);
+        }
+      });
+    });
   </script>
 
 </body>
