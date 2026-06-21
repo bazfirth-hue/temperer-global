@@ -556,8 +556,71 @@
       gap: 8px;
       opacity: 0.80;
       transition: gap var(--t), opacity var(--t);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      font-family: inherit;
+      text-align: left;
     }
     .pillar-cta-link:hover { gap: 14px; opacity: 1; }
+
+    .pillar-chevron {
+      display: inline-block;
+      font-style: normal;
+      font-size: 13px;
+      transition: transform 0.34s ease;
+    }
+    .pillar-card.open .pillar-chevron { transform: rotate(180deg); }
+
+    .pillar-expanded {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.42s ease, margin-top 0.42s ease;
+      margin-top: 0;
+    }
+    .pillar-card.open .pillar-expanded {
+      grid-template-rows: 1fr;
+      margin-top: 28px;
+    }
+    .pillar-expanded-inner { overflow: hidden; }
+
+    .pillar-expanded-divider {
+      height: 1px;
+      background: var(--border-raised);
+      margin-bottom: 22px;
+    }
+    .pillar-detail-head {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+      margin-top: 22px;
+    }
+    .pillar-detail-head:first-child { margin-top: 0; }
+    .pillar-detail-p {
+      font-size: 14px;
+      color: var(--slate);
+      line-height: 1.68;
+      margin-bottom: 4px;
+    }
+    .pillar-detail-list { list-style: none; padding: 0; margin-top: 8px; }
+    .pillar-detail-list li {
+      font-size: 13px;
+      color: var(--slate);
+      padding-left: 18px;
+      position: relative;
+      margin-bottom: 7px;
+      line-height: 1.55;
+    }
+    .pillar-detail-list li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--gold-mid);
+    }
 
     .pillars-bottom {
       margin-top: 72px;
@@ -1120,7 +1183,25 @@
             <li>Assessments conducted across CNI sites, major event venues, and corporate HQs — UK and international</li>
             <li>Every assessment delivers a classified threat register with a prioritised remediation timeline, briefed directly to your board or risk committee</li>
           </ul>
-          <a href="#final-cta" class="pillar-cta-link">View Assessment Detail &rarr;</a>
+          <button class="pillar-cta-link" aria-expanded="false">
+            View Assessment Detail <span class="pillar-chevron" aria-hidden="true">&#9662;</span>
+          </button>
+          <div class="pillar-expanded">
+            <div class="pillar-expanded-inner">
+              <div class="pillar-expanded-divider"></div>
+              <p class="pillar-detail-head">What the Assessment Covers</p>
+              <p class="pillar-detail-p"><strong style="color:var(--white);font-weight:600">Physical layer.</strong> Perimeter integrity, access control, CCTV coverage and blind spots, vehicle threat mitigation, hostile surveillance detection indicators.</p>
+              <p class="pillar-detail-p"><strong style="color:var(--white);font-weight:600">Procedural layer.</strong> Guard force effectiveness, staff security culture, incident reporting protocols, emergency response readiness.</p>
+              <p class="pillar-detail-p"><strong style="color:var(--white);font-weight:600">Technological layer.</strong> Communications resilience, electronic countermeasure gaps, CCTV analytics coverage, IT/OT boundary vulnerabilities.</p>
+              <p class="pillar-detail-head">Deliverables</p>
+              <ul class="pillar-detail-list">
+                <li>Classified threat register with site-specific risk ratings</li>
+                <li>Prioritised remediation roadmap with cost-banded options</li>
+                <li>Board-level briefing document suitable for regulatory submission</li>
+                <li>Six or twelve-month reassessment scheduling available</li>
+              </ul>
+            </div>
+          </div>
         </article>
 
         <!-- 02 -->
@@ -1156,7 +1237,25 @@
             <li>Frameworks developed for multi-jurisdiction, multi-agency environments — from corporate HQs to CNI assets globally</li>
             <li>Response plans stress-tested against live incident data. Full training and tabletop exercise packages available</li>
           </ul>
-          <a href="#final-cta" class="pillar-cta-link">View Disaster Response Detail &rarr;</a>
+          <button class="pillar-cta-link" aria-expanded="false">
+            View Disaster Response Detail <span class="pillar-chevron" aria-hidden="true">&#9662;</span>
+          </button>
+          <div class="pillar-expanded">
+            <div class="pillar-expanded-inner">
+              <div class="pillar-expanded-divider"></div>
+              <p class="pillar-detail-head">Framework Structure</p>
+              <p class="pillar-detail-p">Mass-casualty triage and emergency medical services integration. Multi-agency command and control. Media lockdown and public communications management. Chain-of-command continuity under sustained operational pressure.</p>
+              <p class="pillar-detail-head">Exercise &amp; Training</p>
+              <p class="pillar-detail-p">Full tabletop exercise conducted with your senior leadership team. Live-play options available for larger or high-risk sites. After-action review with written findings and a structured reassessment timeline.</p>
+              <p class="pillar-detail-head">Deliverables</p>
+              <ul class="pillar-detail-list">
+                <li>Site-specific disaster response plan (classified)</li>
+                <li>Staff training programme and competency framework</li>
+                <li>Tabletop exercise facilitation and findings report</li>
+                <li>Post-exercise improvement register with assigned accountability</li>
+              </ul>
+            </div>
+          </div>
         </article>
 
         <!-- 03 -->
@@ -1191,7 +1290,25 @@
             <li>Applied to G7 Summit security planning and major national event infrastructure — the same capability, now available to you</li>
             <li>Martyn's Law audit-ready documentation produced as standard. SIA-compliant output for Standard and Enhanced Tier venues</li>
           </ul>
-          <a href="#final-cta" class="pillar-cta-link">View 3D Modelling Detail &rarr;</a>
+          <button class="pillar-cta-link" aria-expanded="false">
+            View 3D Modelling Detail <span class="pillar-chevron" aria-hidden="true">&#9662;</span>
+          </button>
+          <div class="pillar-expanded">
+            <div class="pillar-expanded-inner">
+              <div class="pillar-expanded-divider"></div>
+              <p class="pillar-detail-head">How It Works</p>
+              <p class="pillar-detail-p">LiDAR scanning produces a millimetre-accurate 3D model of your venue or facility. We overlay crowd-flow modelling, ingress vulnerability mapping, blast-radius scenarios, and evacuation bottleneck analysis — all within a secure digital environment before any physical change is made.</p>
+              <p class="pillar-detail-head">Martyn's Law Compliance</p>
+              <p class="pillar-detail-p">Output is structured to satisfy both Standard and Enhanced Tier SIA requirements. Delivered as part of a compliance pack suitable for submission to your SIA Registered Inspector within five working days for standard sites.</p>
+              <p class="pillar-detail-head">Deliverables</p>
+              <ul class="pillar-detail-list">
+                <li>Full-fidelity digital twin of your venue or facility</li>
+                <li>Ingress vulnerability and crowd-flow assessment</li>
+                <li>Martyn's Law SIA-compliant audit documentation</li>
+                <li>Optional ongoing monitoring and annual refresh licence</li>
+              </ul>
+            </div>
+          </div>
         </article>
 
         <!-- 04 -->
@@ -1227,7 +1344,25 @@
             <li>Deployable UK-wide within a 48-hour activation window. Short-term event contracts and ongoing site protection both available</li>
             <li>Zero drone incursions at Temperer-protected events. Systems operated exclusively by qualified, experienced personnel</li>
           </ul>
-          <a href="#final-cta" class="pillar-cta-link">View Counter-UAS Detail &rarr;</a>
+          <button class="pillar-cta-link" aria-expanded="false">
+            View Counter-UAS Detail <span class="pillar-chevron" aria-hidden="true">&#9662;</span>
+          </button>
+          <div class="pillar-expanded">
+            <div class="pillar-expanded-inner">
+              <div class="pillar-expanded-divider"></div>
+              <p class="pillar-detail-head">Capability</p>
+              <p class="pillar-detail-p">Fully integrated detection, classification, identification, and defeat system. All platforms are Home Office compliant. Operators hold current security clearance and are drawn exclusively from military or specialist law enforcement backgrounds.</p>
+              <p class="pillar-detail-head">Contract Options</p>
+              <p class="pillar-detail-p"><strong style="color:var(--white);font-weight:600">Short-term event protection.</strong> Single event to a full event series. <strong style="color:var(--white);font-weight:600">Ongoing site protection.</strong> Monthly rolling contracts for CNI assets, major venues, and VIP locations. Activation confirmed within 48 hours of contract signature.</p>
+              <p class="pillar-detail-head">Deliverables</p>
+              <ul class="pillar-detail-list">
+                <li>Pre-deployment readiness brief and event integration plan</li>
+                <li>Real-time incident log throughout the deployment period</li>
+                <li>Post-event UAS activity assessment report</li>
+                <li>Incident documentation suitable for regulatory or insurance submission</li>
+              </ul>
+            </div>
+          </div>
         </article>
 
       </div>
@@ -1430,6 +1565,26 @@
     }, { threshold: 0.06, rootMargin: '0px 0px -28px 0px' });
 
     revealEls.forEach(el => observer.observe(el));
+
+    /* Pillar card expand / collapse */
+    document.querySelectorAll('.pillar-cta-link').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const card   = btn.closest('.pillar-card');
+        const isOpen = card.classList.contains('open');
+
+        /* Close any currently open card */
+        document.querySelectorAll('.pillar-card.open').forEach(c => {
+          c.classList.remove('open');
+          c.querySelector('.pillar-cta-link').setAttribute('aria-expanded', 'false');
+        });
+
+        /* Toggle the clicked card (open only if it was closed) */
+        if (!isOpen) {
+          card.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
   </script>
 
 </body>
