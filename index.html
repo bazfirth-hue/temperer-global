@@ -34,10 +34,10 @@
     #hex-layer {
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
-      filter: drop-shadow(0 0 22px rgba(42,110,220,0.9))
-              drop-shadow(0 0 8px rgba(130,185,255,0.55));
+      filter: drop-shadow(0 0 20px rgba(0,255,51,0.18))
+              drop-shadow(0 0 7px rgba(0,255,51,0.09));
       z-index: 1;
-      animation: hexZoom 0.75s cubic-bezier(0.4, 0, 0.2, 1) 0.15s both;
+      animation: hexZoom 0.7s cubic-bezier(0.4, 0, 0.2, 1) 0.1s both;
     }
 
     @keyframes hexZoom {
@@ -65,8 +65,8 @@
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
       background: url('110616fa-689d-417c-af5b-388490147f13.webp') center / 100% 100% no-repeat;
-      filter: url('#rw') saturate(0.06) brightness(0.62);
-      animation: portcullisDrop 0.85s linear 1.05s both;
+      filter: url('#rw') saturate(0.06) brightness(0.62) drop-shadow(0 0 3px #0B1325);
+      animation: portcullisDrop 0.7s linear 0.85s both;
     }
 
     @keyframes portcullisDrop {
@@ -78,6 +78,13 @@
     }
 
     /* ── Stage 3: Frog fades in over the grey grate ───────────── */
+    /*
+     * clip-path uses CSS polygon() NOT url('#hex-interior').
+     * Chrome miscalculates objectBoundingBox when clip-path: url() and
+     * filter: url() are on the same element, making the layer invisible.
+     * polygon() resolves against layout bounds — no SVG interaction.
+     * Coordinates are the hex-interior path converted to percentages.
+     */
     #frog-layer {
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
@@ -86,14 +93,18 @@
       background-repeat: no-repeat;
       background-position: center;
       background-size: 100% 100%;
-      clip-path: url('#hex-interior');
-      filter: url('#rw');
+      clip-path: polygon(33% 15%, 67% 15%, 82% 42%, 67% 69%, 33% 69%, 18% 42%);
+      filter: url('#rw') drop-shadow(0 0 3px #0B1325);
       z-index: 3;
-      opacity: 0;
-      animation: revealIn 0.75s ease 2.0s forwards;
+      animation: frogFadeIn 1.2s ease 1.7s both;
     }
 
-    /* ── Wordmark fades in with the frog ──────────────────────── */
+    @keyframes frogFadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* ── Wordmark fades in just after the frog ────────────────── */
     #wordmark {
       font-family: 'Rajdhani', sans-serif;
       font-weight: 700;
@@ -101,11 +112,13 @@
       letter-spacing: 0.22em;
       color: #2E5098;
       text-transform: uppercase;
-      opacity: 0;
-      animation: revealIn 0.75s ease 2.15s forwards;
+      animation: wordFadeIn 1.2s ease 1.85s both;
     }
 
-    @keyframes revealIn { to { opacity: 1; } }
+    @keyframes wordFadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
   </style>
 </head>
 <body>
@@ -121,9 +134,9 @@
                   0 0 1 0 0
                  -1 -1 -1 0 3"/>
       </filter>
-      <!-- hex-interior: inner hex only — portcullis window and frog clip -->
+      <!-- hex-interior: inner hex — side vertices pulled in 3% to hide stray triangle tips -->
       <clipPath id="hex-interior" clipPathUnits="objectBoundingBox">
-        <path d="M 0.33,0.15 L 0.67,0.15 L 0.85,0.42 L 0.67,0.69 L 0.33,0.69 L 0.15,0.42 Z"/>
+        <path d="M 0.33,0.15 L 0.67,0.15 L 0.82,0.42 L 0.67,0.69 L 0.33,0.69 L 0.18,0.42 Z"/>
       </clipPath>
     </defs>
   </svg>
@@ -133,7 +146,7 @@
       <svg id="hex-layer" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
         <path fill-rule="evenodd" fill="#7E8FA0"
           d="M 27,7 L 73,7 L 93,42 L 73,76 L 27,76 L 7,42 Z
-             M 33,15 L 67,15 L 85,42 L 67,69 L 33,69 L 15,42 Z"/>
+             M 33,15 L 67,15 L 82,42 L 67,69 L 33,69 L 18,42 Z"/>
       </svg>
       <div id="portcullis-window">
         <div id="portcullis-grate"></div>
@@ -145,13 +158,14 @@
 
   <script>
     (function () {
+      // CSS animations handle frog (1.7s) and wordmark (1.85s).
+      // JS only manages the exit: hold until 4.4s, fade 0.5s, redirect.
       var splash = document.getElementById('splash');
-      // Logo completes ~2.75s → hold 1.5s → fade 0.5s → redirect
       setTimeout(function () {
         splash.style.transition = 'opacity 0.5s ease';
         splash.style.opacity    = '0';
         setTimeout(function () { window.location.href = 'main.html'; }, 500);
-      }, 4250);
+      }, 4400);
     }());
   </script>
 
